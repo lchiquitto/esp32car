@@ -35,3 +35,15 @@ Os pacotes UDP que controlam a movimentação do carro possuem um único byte no
 ```
 
 Os valores são, respectivamente, temperatura (celsius), umidade (percentual), som/volume analógico (sem unidade), som/volume digital (sem unidade) e distância (centímetros).
+
+
+## Referências
+
+As seguintes páginas e projetos foram consultados e usados como referência para esta implementação:
+
+- Exemplos de comunicação UDP utilizando WiFiUdp.h [https://www.alejandrowurts.com/projects/esp32-wifi-udp/](https://www.alejandrowurts.com/projects/esp32-wifi-udp/)
+- Exemplos básicos de comunicação UDP com Python [https://wiki.python.org/moin/UdpCommunication](https://wiki.python.org/moin/UdpCommunication)
+- Tutorial de utilização do sensor de som KY-038 [https://diyi0t.com/sound-sensor-arduino-esp8266-esp32/](https://diyi0t.com/sound-sensor-arduino-esp8266-esp32/)
+- Tutorial de utilização do sensor DHT11 [https://www.electronicshub.org/esp32-dht11-tutorial/](https://www.electronicshub.org/esp32-dht11-tutorial/)
+- Tutorial de utilização da ponte H (L298N) [https://blog.eletrogate.com/guia-definitivo-de-uso-da-ponte-h-l298n/](https://blog.eletrogate.com/guia-definitivo-de-uso-da-ponte-h-l298n/)
+- Exemplo de programação multitarefa para ESP32 [https://github.com/beegee-tokyo/DHTespOrg/tree/master/examples/DHT_ESP32](https://github.com/beegee-tokyo/DHTespOrg/tree/master/examples/DHT_ESP32)
