@@ -10,13 +10,15 @@ Este projeto implementa um "carrinho" de controle remoto simples através dos se
 - Ponte H (L298N)
 - Duas baterias de 4.2V (modelo 18650)
 
-O veículo carrega os seguintes sensores de medição:
+<img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/chassi.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/bateria.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/esp32.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ponteh.jpg" width="250">
+
+O veículo carrega os seguintes sensores de medição, conectados ao microcontrolador através de um mini protoboard:
 
 - Sensor ultrasônico (HC-SR04)
 - Sensor de temperatura e umidade (DHT11)
 - Sensor de som com microfone (KY-038)
 
-As conexões entre microcontrolador e sensores são feitas com um mini protoboard.
+<img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/hcsr04.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/dht11.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ky038.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/protoboard.jpg" width="250">
 
 ## Funcionamento
 
