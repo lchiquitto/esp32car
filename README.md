@@ -10,7 +10,7 @@ Este projeto implementa um "carrinho" de controle remoto simples através dos se
 - Ponte H (L298N)
 - Duas baterias de 4.2V (modelo 18650)
 
-<img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/chassi.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/bateria.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/esp32.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ponteh.jpg" width="250">
+<img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/chassi.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/bateria.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/esp32.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ponteh.jpg" width="200">
 
 O veículo carrega os seguintes sensores de medição, conectados ao microcontrolador através de um mini protoboard:
 
@@ -18,7 +18,7 @@ O veículo carrega os seguintes sensores de medição, conectados ao microcontro
 - Sensor de temperatura e umidade (DHT11)
 - Sensor de som com microfone (KY-038)
 
-<img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/hcsr04.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/dht11.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ky038.jpg" width="250"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/protoboard.jpg" width="250">
+<img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/hcsr04.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/dht11.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ky038.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/protoboard.jpg" width="200">
 
 ## Funcionamento
 
@@ -26,9 +26,25 @@ O veículo carrega os seguintes sensores de medição, conectados ao microcontro
 
 As baterias, ligadas em série, fornecem aproximadamente 8.4V de tensão. Seus polos estão conectados às entradas "12 V" e "GND" da ponte H. O regulador de tensão da ponte H está habilitado. A conexão "5 V" (Vlogic) da ponte H fornece alimentação para o microcontrolador ESP32 através de seu pino VIN. Os sensores, que consomem pouca corrente, são alimentados pelo pino "3V3" do microcontrolador ESP32.
 
+### Pinagem dos sensores
+
+| ESP32  | Ponte H | DHT11 | KY038 | HC-SR04 |
+| ------ | ------- | ----- | ----- | ------- |
+| D25    | ENA     |       |       |         |
+| D26    | IN1     |       |       |         |
+| D27    | IN2     |       |       |         |
+| D14    | IN3     |       |       |         |
+| D12    | IN4     |       |       |         |
+| D13    | ENB     |       |       |         |
+| D04    |         | DATA  |       |         |
+| D35    |         |       | A0    |         |
+| D34    |         |       | D0    |         |
+| D16    |         |       |       | ECHO    |
+| D17    |         |       |       | TRIGGER |
+
 ### Comunicação
 
-O microcontrolador é programado para conectar-se a uma rede WIFI pré-definida. O software executado no microcontrolador recebe comandos e envia dados das leituras dos sensores via rede (IP/UDP). Os comandos aceitos são: F (move o carro para frente), B (move o carro para trás), L (vira à esquerda), R (vira à direita), S (para o carro), X (solicita o envio dos dados dos sensores).
+O microcontrolador é programado para conectar-se a uma rede WIFI pré-definida. O software executado no microcontrolador recebe comandos e envia dados das leituras dos sensores via rede (IP/UDP). Os comandos aceitos são: **F** (move o carro para frente), **B** (move o carro para trás), **L** (vira à esquerda), **R** (vira à direita), **S** (para o carro), **X** (solicita o envio dos dados dos sensores).
 
 Os pacotes UDP que controlam a movimentação do carro possuem um único byte no seu campo de dados (as letras acima). O pacote enviado pelo carro para o controlador, contendo os dados de leituras dos sensores, possui o seguinte formato:
 
