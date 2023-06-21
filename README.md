@@ -1,6 +1,6 @@
-# esp32car
+## Carro Microcontrolado com Wifi
 
-## Componentes
+### Componentes
 
 Este projeto implementa um "carrinho" de controle remoto simples através dos seguintes componentes:
 
@@ -19,8 +19,6 @@ O veículo carrega os seguintes sensores de medição, conectados ao microcontro
 - Sensor de som com microfone (KY-038)
 
 <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/hcsr04.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/dht11.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/ky038.jpg" width="200"> <img src="https://raw.githubusercontent.com/lchiquitto/esp32car/main/doc/protoboard.jpg" width="200">
-
-## Funcionamento
 
 ### Alimentação
 
@@ -54,8 +52,22 @@ Os pacotes UDP que controlam a movimentação do carro possuem um único byte no
 
 Os valores são, respectivamente, temperatura (celsius), umidade (percentual), som/volume analógico (sem unidade), som/volume digital (sem unidade) e distância (centímetros).
 
+### Código
 
-## Referências
+Algumas observações sobre a organização e funcionamento do código:
+
+- As bibliotecas `Ticker`, `DHTesp`, `WiFi` e `WiFiUdp` são usadas.
+- São criadas três *threads* (Tasks), cada uma delas responsável por ler dados de um dos sensores.
+- Cada tarefa executa uma única leitura e é suspensa. Um alarme (*Ticker*) é responsável por acordar as tarefas após *n* segundos (*n* é diferente para cada uma das tarefas).
+- O SSID e a senha da rede WIFI é fixo no código.
+- Em `setup()` ocorre a criação das tarefas, a inicialização dos sensores e pinos e a conexão com a rede WIFI.
+- Em `loop()` o programa aguarda a chegada de comandos via pacotes de rede.
+- As funções que leem dados dos sensores atualizam uma estrutura `sensorReadings` definida globalmente.
+- A função `processCommand()` interpreta o comando recebido e chama a função adequada para tratá-lo.
+- As funções `stopMoving()`, `moveForward()`, `moveBack()`, `turnLeft()` e `turnRight()` controlam os motores escrevendo no pinos conectados à ponte H.
+- Para tirar o carro da inércia, uma tensão de aproximadamente 5.6V é aplicada (PWM 170) por 100ms. Após, a tensão é reduzida para aproximadamente 4.6V (PWM 140).
+
+### Referências
 
 As seguintes páginas e projetos foram consultados e usados como referência para esta implementação:
 
