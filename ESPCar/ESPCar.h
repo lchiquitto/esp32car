@@ -20,8 +20,10 @@
 #define PIN_PH_ENB      13
 
 /* Tensões PWM para controle de velocidade dos motores */
-#define V_MOVING    100
-#define V_STARTUP   150
+#define V_MOVING    140
+#define V_STARTUP   170
+
+#define STARTUP_MS  100
 
 /* Estado do carro (em movimento ou parado) */
 #define S_STOPPED   0

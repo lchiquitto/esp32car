@@ -76,11 +76,11 @@ void moveForward()
     digitalWrite(PIN_PH_IN2, LOW);
     digitalWrite(PIN_PH_IN3, HIGH);
     digitalWrite(PIN_PH_IN4, LOW);
-    
+
     if (carState == S_STOPPED) {
         analogWrite(PIN_PH_ENA, V_STARTUP);
         analogWrite(PIN_PH_ENB, V_STARTUP);
-        delay(50);
+        delay(STARTUP_MS);
     }
     analogWrite(PIN_PH_ENA, V_MOVING);
     analogWrite(PIN_PH_ENB, V_MOVING);
@@ -97,7 +97,7 @@ void moveBack()
     if (carState == S_STOPPED) {
         analogWrite(PIN_PH_ENA, V_STARTUP);
         analogWrite(PIN_PH_ENB, V_STARTUP);
-        delay(50);
+        delay(STARTUP_MS);
     }
     analogWrite(PIN_PH_ENA, V_MOVING);
     analogWrite(PIN_PH_ENB, V_MOVING);
@@ -110,11 +110,11 @@ void turnLeft()
     digitalWrite(PIN_PH_IN2, LOW);
     digitalWrite(PIN_PH_IN3, HIGH);
     digitalWrite(PIN_PH_IN4, LOW);
-    
+
     if (carState == S_STOPPED) {
         analogWrite(PIN_PH_ENA, V_STARTUP);
-        analogWrite(PIN_PH_ENB, V_STARTUP); 
-        delay(50);       
+        analogWrite(PIN_PH_ENB, V_STARTUP);
+        delay(STARTUP_MS);
     }
     analogWrite(PIN_PH_ENA, V_MOVING);
     analogWrite(PIN_PH_ENB, V_MOVING);
@@ -128,11 +128,11 @@ void turnRight()
     digitalWrite(PIN_PH_IN2, LOW);
     digitalWrite(PIN_PH_IN3, LOW);
     digitalWrite(PIN_PH_IN4, LOW);
-    
+
     if (carState == S_STOPPED) {
         analogWrite(PIN_PH_ENA, V_STARTUP);
-        analogWrite(PIN_PH_ENB, V_STARTUP); 
-        delay(50);
+        analogWrite(PIN_PH_ENB, V_STARTUP);
+        delay(STARTUP_MS);
     }
     analogWrite(PIN_PH_ENA, V_MOVING);
     analogWrite(PIN_PH_ENB, V_MOVING);
@@ -158,10 +158,10 @@ bool initSensors()
 
     /* Le sensor de temperatura a cada 20 segundos */
     tempTicker.attach(20, triggerGetTemp);
-    
+
     /* Le sensor de som/volume a cada 5 segundos */
     soundTicker.attach(5, triggerGetSound);
-    
+
     /* Le sensor de distancia a cada segundo */
     distanceTicker.attach(1, triggerGetDistance);
 
@@ -320,23 +320,23 @@ bool getDistance()
 void sendReadings()
 {
     char mask[] = "{\"T\": %.2f, \"H\": %.2f, \"SA\": %d, \"SD\": %d, \"D\": %.2f}";
-    
+
     udp.beginPacket(udp.remoteIP(), udpPort);
     udp.printf(mask, srs.temperature,
                      srs.humidity,
                      srs.sound_analog,
                      srs.sound_digital,
                      srs.distance);
-    udp.endPacket();  
+    udp.endPacket();
 }
 
 void processCommand(char cmd)
 {
     static bool led = true;
-    
+
     digitalWrite(ONBOARD_LED, led);
     led = !led;
-    
+
     switch (cmd) {
         case CMD_FORWARD:
             moveForward();
@@ -398,7 +398,7 @@ void loop()
 
     /* Loop para receber comandos via UDP */
     int packetSize = udp.parsePacket();
-    
+
     if (packetSize) {
         int len = udp.read(packetBuffer, 255);
         if (len == 1) {
@@ -408,7 +408,7 @@ void loop()
             Debug("Pacote com tamanho invalido descartado");
         }
     }
-    
+
     /* Necessario para que as outras tarefas possam rodar */
     yield();
 }
